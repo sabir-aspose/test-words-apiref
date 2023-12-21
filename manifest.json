@@ -1,0 +1,344 @@
+{
+  "source_base_path": "/Users/muhammadsabir/Projects/docfx_project/23.12.0/API/docfx_project",
+  "xrefmap": "xrefmap.yml",
+  "files": [
+    {
+      "type": "Resource",
+      "output": {
+        "resource": {
+          "relative_path": "index.json"
+        }
+      }
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "README.md",
+      "output": {
+        ".html": {
+          "relative_path": "README.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/FileFormat.Words.Body.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/FileFormat.Words.Body.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/FileFormat.Words.Document.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/FileFormat.Words.Document.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/FileFormat.Words.FileFormatException.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/FileFormat.Words.FileFormatException.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/FileFormat.Words.IElements.Cell.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/FileFormat.Words.IElements.Cell.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/FileFormat.Words.IElements.Colors.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/FileFormat.Words.IElements.Colors.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/FileFormat.Words.IElements.Column.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/FileFormat.Words.IElements.Column.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/FileFormat.Words.IElements.ElementStyles.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/FileFormat.Words.IElements.ElementStyles.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/FileFormat.Words.IElements.Headings.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/FileFormat.Words.IElements.Headings.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/FileFormat.Words.IElements.IElement.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/FileFormat.Words.IElements.IElement.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/FileFormat.Words.IElements.Image.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/FileFormat.Words.IElements.Image.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/FileFormat.Words.IElements.PageMargin.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/FileFormat.Words.IElements.PageMargin.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/FileFormat.Words.IElements.PageSize.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/FileFormat.Words.IElements.PageSize.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/FileFormat.Words.IElements.Paragraph.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/FileFormat.Words.IElements.Paragraph.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/FileFormat.Words.IElements.Row.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/FileFormat.Words.IElements.Row.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/FileFormat.Words.IElements.Run.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/FileFormat.Words.IElements.Run.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/FileFormat.Words.IElements.Section.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/FileFormat.Words.IElements.Section.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/FileFormat.Words.IElements.Table.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/FileFormat.Words.IElements.Table.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/FileFormat.Words.IElements.Unknown.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/FileFormat.Words.IElements.Unknown.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/FileFormat.Words.IElements.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/FileFormat.Words.IElements.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/FileFormat.Words.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/FileFormat.Words.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "log_codes": [
+        "InvalidFileLink"
+      ],
+      "type": "Conceptual",
+      "source_relative_path": "api/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "api/index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "api/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/toc.html"
+        },
+        ".json": {
+          "relative_path": "api/toc.json"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/complexities.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/complexities.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/design.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/design.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/introopenxmlsdk.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/introopenxmlsdk.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/overview.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/overview.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "articles/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "articles/toc.html"
+        },
+        ".json": {
+          "relative_path": "articles/toc.json"
+        }
+      },
+      "version": ""
+    },
+    {
+      "log_codes": [
+        "InvalidFileLink"
+      ],
+      "type": "Conceptual",
+      "source_relative_path": "index.md",
+      "output": {
+        ".html": {
+          "relative_path": "index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "toc.html"
+        },
+        ".json": {
+          "relative_path": "toc.json"
+        }
+      },
+      "version": ""
+    }
+  ],
+  "groups": [
+    {
+      "xrefmap": "xrefmap.yml"
+    }
+  ]
+}

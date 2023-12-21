@@ -1,0 +1,198 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Challenges when using OpenXML SDK | Words FileFormat </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Challenges when using OpenXML SDK | Words FileFormat ">
+      <meta name="description" content="When using OpenXML SDK to manipulate word documents, you may face various complexities. This guide outlines some challenges and remedies.">
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+  </head>
+
+  <script type="module" src="./../public/docfx.min.js"></script>
+
+  <script>
+    const theme = localStorage.getItem('theme') || 'auto'
+    document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+  </script>
+
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="FileFormat.Words">
+            FileFormat.Words
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled="" placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="complexities-of-openxml-sdk">Complexities of OpenXML SDK</h1>
+
+<p>The OpenXML SDK (Software Development Kit) is a powerful tool for working with Microsoft Office files, particularly for manipulating Word documents in a programmatic way. It allows developers to create, modify, and analyze documents in the Open XML format used by Microsoft Word. While the SDK offers a wide range of capabilities, it comes with certain complexities that developers must be aware of to ensure their documents are correctly structured and behave as expected. In this article, we will explore some of the intricacies and challenges associated with using the OpenXML SDK, and how to overcome them.</p>
+<h2 id="sequence-matters">Sequence Matters</h2>
+<p>The OpenXML SDK is a collection of various XML elements that can be used to create Word documents. One of the most significant complexities is that the SDK does not validate the structure. It allows users to append elements in any sequence they choose. However, this flexibility can lead to issues. For example, appending a child to the <code>Body</code> via OpenXML SDK may place it at the end after the section (represented as <code>SectionProperties</code> in OpenXML SDK), potentialy resulting in a corrupted document.</p>
+<h3 id="example-wrong-element-append">Example: Wrong Element Append</h3>
+<pre><code class="lang-csharp">// Wrong Append to Body
+Paragraph paragraph = new Paragraph();
+ParagraphProperties paragraphProperties = new ParagraphProperties();
+paragraph.Append(paragraphProperties);
+
+Body body = mainDocumentPart.Document.Body;
+body.AppendChild(paragraph);
+</code></pre>
+<h3 id="example-correct-element-append">Example: Correct Element Append</h3>
+<pre><code class="lang-csharp">// Correct Append to Body
+Paragraph paragraph = new Paragraph();
+ParagraphProperties paragraphProperties = new ParagraphProperties();
+paragraph.Append(paragraphProperties);
+
+Body body = mainDocumentPart.Document.Body;
+var sectionPropertiesList = body.Elements&lt;WP.SectionProperties&gt;().ToList();
+if (sectionPropertiesList.Any())
+{
+   var lastSectionProperties = sectionPropertiesList.Last();
+   body.InsertBefore(paragraph, lastSectionProperties);
+}                       
+</code></pre>
+<h2 id="fontfamily-placement">FontFamily Placement</h2>
+<p>In OpenXML, the sequence in which you define <code>FontFamily</code> is crucial. Placing <code>FontFamily</code> in <code>RunProperties</code> before any other XML element is vital. If <code>FontFamily</code> is appended after other font attributes, Microsoft Word might overlook the specified <code>FontFamily</code> and default to its standard font (usually Calibri). To prevent this, ensure 'FontFamily' defined in <code>RunFonts</code> is added to <code>RunProperties</code> before any other font-related XML elements within <code>RunProperties</code>.</p>
+<h3 id="example-wrong-fontfamily-placement">Example: Wrong FontFamily Placement</h3>
+<pre><code class="lang-csharp">// Wrong FontFamily Placement
+var wpRunWrong = new WP.Run();
+var runPropertiesWrong = new WP.RunProperties();
+var colorWrong = new WP.Color { Val = &quot;#0000FF&quot; };
+runPropertiesWrong.Append(colorWrong);
+var runFontWrong = new WP.RunFonts { Ascii = &quot;Arial&quot; };
+runPropertiesWrong.Append(runFontWrong);
+// Add other font properties as needed
+</code></pre>
+<h3 id="example-correct-fontfamily-placement">Example: Correct FontFamily Placement</h3>
+<pre><code class="lang-csharp">// Correct FontFamily Placement
+var wpRunCorrect = new WP.Run();
+var runPropertiesCorrect = new WP.RunProperties();
+var runFontCorrect = new WP.RunFonts { Ascii = &quot;Arial&quot; };
+runPropertiesCorrect.Append(runFontCorrect);
+var colorCorrect = new WP.Color { Val = &quot;#0000FF&quot; };
+runPropertiesCorrect.Append(colorCorrect);
+// Add other font properties as needed
+</code></pre>
+<h2 id="tableproperties-placement">TableProperties Placement</h2>
+<p>The positioning of table properties is crucial for proper document interpretation in Word. If you append TableProperties after adding the table, row properties, or cell properties, Microsoft Word might overlook these XML elements. To avoid this issue, it is essential to define TableProperties before other related elements, such as rows and cells.</p>
+<h3 id="example-wrong-tableproperties-placement">Example: Wrong TableProperties Placement</h3>
+<pre><code class="lang-csharp">// Wrong Table Properties Placement
+Table tableWrong = new Table();
+TableProperties tablePropertiesWrong = new TableProperties();
+TableRow tableRowWrong = new TableRow();
+TableRowProperties tableRowPropertiesWrong = new TableRowProperties();
+TableCell tableCellWrong = new TableCell();
+TableCellProperties tableCellPropertiesWrong = new TableCellProperties();
+
+tableCellWrong.Append(tableCellPropertiesWrong);
+tableRowWrong.Append(tableRowPropertiesWrong);
+tableRowWrong.Append(tableCellWrong);
+tableWrong.Append(tableRowWrong);
+tableWrong.Append(tablePropertiesWrong);
+</code></pre>
+<h3 id="example-correct-tableproperties-placement">Example: Correct TableProperties Placement</h3>
+<pre><code class="lang-csharp">// Correct Table Properties Placement
+Table tableCorrect = new Table();
+TableProperties tablePropertiesCorrect = new TableProperties();
+TableRow tableRowCorrect = new TableRow();
+TableRowProperties tableRowPropertiesCorrect = new TableRowProperties();
+TableCell tableCellCorrect = new TableCell();
+TableCellProperties tableCellPropertiesCorrect = new TableCellProperties();
+
+tableCellCorrect.Append(tableCellPropertiesCorrect);
+tableRowCorrect.Append(tableRowPropertiesCorrect);
+tableRowCorrect.Append(tableCellCorrect);
+tableCorrect.Append(tablePropertiesCorrect);
+tableCorrect.Append(tableRowCorrect);
+</code></pre>
+<h2 id="overcoming-the-challenges">Overcoming the Challenges</h2>
+<p>To work effectively with the OpenXML SDK, developers need to understand the valid sequences that Microsoft Word can recognize and understand. Failing to follow these sequences can result in unpredictable document behavior. In some cases, Word may attempt to correct the document based on its default behavior, but in the worst cases, the document may become corrupted.</p>
+<p>One approach to mitigating these complexities is to use a wrapper or library that enforces the correct document structure. Tools like <a href="index.html">FileFormat.Words</a> provide a higher-level API that simplifies the process of working with OpenXML and ensures that documents adhere to the expected structure.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>In summary, the OpenXML SDK is a valuable resource for working with Word documents, especially for complex tasks. It can load intricate Word documents correctly. However, when creating new documents or updating existing ones, developers must be mindful of the valid append sequences to achieve the desired results. Using <a href="https://www.nuget.org/packages/FileFormat.Words">FileFormat.Words</a> or understanding Word's expectations for document structure can help streamline the development process and avoid potential pitfalls. With the right knowledge and tools, the OpenXML SDK can be a powerful ally in creating and manipulating Word documents programmatically.</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
